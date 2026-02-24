@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>77 NAJBOLJIH "DA LI BI RADIJE" PITANJA</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Dancing+Script&display=swap" rel="stylesheet">
+<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        justify-content: space-between;
+        color: #333;
+    }
+
+    header {
+        background: #ff6f61;
+        color: white;
+        text-align: center;
+        padding: 30px 10px;
+        font-family: 'Dancing Script', cursive;
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 2em;
+        line-height: 1.2em;
+    }
+
+    .container {
+        max-width: 700px;
+        margin: 40px auto;
+        padding: 20px;
+        text-align: center;
+    }
+
+    .question-box {
+        background: white;
+        border-radius: 15px;
+        padding: 30px 20px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        margin-bottom: 20px;
+        font-size: 1.1em;
+        line-height: 1.5em;
+    }
+
+    .options button {
+        background: #ff6f61;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        padding: 15px 25px;
+        margin: 10px;
+        font-size: 1em;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .options button:hover {
+        background: #ff856f;
+    }
+
+    .results {
+        margin-top: 20px;
+        font-weight: bold;
+    }
+
+    .next-btn {
+        margin-top: 20px;
+        padding: 12px 30px;
+        font-size: 1em;
+        border-radius: 10px;
+        border: none;
+        background-color: #6fa1ff;
+        color: white;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .next-btn:hover {
+        background-color: #7fb2ff;
+    }
+
+    footer {
+        text-align: center;
+        padding: 15px;
+        background: #ff6f61;
+        color: white;
+        font-family: 'Dancing Script', cursive;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>77 NAJBOLJIH "DA LI BI RADIJE" PITANJA</h1>
+</header>
+
+<div class="container">
+    <div class="question-box" id="question-box">
+        <!-- Pitanje se prikazuje ovde -->
+    </div>
+    <div class="options" id="options">
+        <button id="optionA"></button>
+        <button id="optionB"></button>
+    </div>
+    <div class="results" id="results" style="display:none;">
+        <!-- Procenat glasova se prikazuje ovde -->
+    </div>
+    <button class="next-btn" id="next-btn" style="display:none;">Dalje</button>
+</div>
+
+<footer>
+    © 2026 77 NAJBOLJIH "DA LI BI RADIJE" PITANJA
+</footer>
+
+<script>
+const pitanja = [
+["Vidiš 10 minuta u budućnost", "Vidiš 150 godina u budućnost"],
+["Telekineza", "Telepatija"],
+["Saradnja sa Wonder Woman", "Saradnja sa Captain Marvel"],
+["Pevanje uz svaku pesmu", "Igranje uz svaku pesmu"],
+["Pronaći pravu ljubav danas", "Osvojiti lutriju sledeće godine"],
+["Biti u zatvoru 5 godina", "Biti u komi 10 godina"],
+["Još 10 godina sa partnerom", "Jednu noć sa slavnom osobom"],
+["Svi mogu čitati tvoje misli", "Svi imaju pristup tvojoj istoriji interneta"],
+["Izgubiti vid", "Izgubiti sećanja"],
+["Univerzalno poštovanje", "Neograničena moć"],
+["Bez grejanja i klimatizacije", "Bez interneta"],
+["Plivati u bazenu Nutelle", "Plivati u bazenu javorovog sirupa"],
+["Raditi pod vrućim suncem", "Raditi u ekstremnoj hladnoći"],
+["Ostati kod kuće na snežan dan", "Praviti tvrđavu od snega"],
+["Kupovati 10 stvari koje ti ne trebaju", "Uvek zaboraviti ono što ti treba"],
+["Nikada ne izlaziti danju", "Nikada ne izlaziti noću"],
+["Lična sobarica", "Lični kuvar"],
+["3,3 metra visok", "23 centimetra visok"],
+["Talent Beyoncé", "Biznis smisao Jay-Z-a"],
+["Statista u Oscar filmu", "Glavna uloga u filmu koji je flop"],
+["Povratiti na heroja", "Heroj povrati na tebe"],
+["Komunicirati samo emodžijima", "Nikada ne slati poruke"],
+["Kraljevsko poreklo pre 1000 godina", "Obična osoba danas"],
+["Ležati pored bazena", "Na plaži"],
+["Nepoznati superheroj", "Poznati negativac"],
+["Uzeo rizik i propao", "Bio siguran i nikada ne saznao"],
+["Najbolja odeća", "Najbolja tehnologija"],
+["Živeti bez mobilnog", "Živeti bez računara"],
+["Poklon 1200 $", "Poklon 100 $ mesečno godinu dana"],
+["100 dolara", "100 lutrijskih karata"],
+["Suočiti vrućinu pustinje", "Suočiti hladnoću Arktika"],
+["Sjajan kuvar koji voli posao", "Kuvar pravi sve za tebe"],
+["Biti u zatvoru godinu dana", "Biti beskućnik godinu dana"],
+["Jedna želja danas", "Tri želje za 10 godina"],
+["Gubitnički tim sa prijateljima", "Rival tim i pobeda"],
+["Pevati uz svaku pesmu", "Igrati uz svaku pesmu"],
+["Rešiti klimatske promene", "Okončati sve sukobe u svetu"],
+["Predvideti budućnost", "Zapamtiti sve što si ikada uradio"],
+["Živeti u svetu bez muzike", "Živeti u svetu bez televizije"],
+["Varati u igri i pobediti", "Izgubiti, ali znaš da si dao sve od sebe"],
+["Jesti u omiljenom restoranu", "Jesti u novom restoranu"],
+["Sveta upravljaju tinejdžeri", "Jedan dobro obrazovani odrasli bira se svakih 15 godina"],
+["Zarađivati 1 milion kao YouTuber", "Zarađivati 1 milion kao anonimni autor"],
+["Neko pozajmio 500 $ i nije vratio", "Ti pozajmio 500 $ i nije vratio"],
+["Izgubiti vid", "Izgubiti sećanja"],
+["Bez grejanja i klimatizacije", "Bez interneta"],
+["Izgubiti sve zube", "Izgubiti svu kosu"],
+["Nikada ne koristiti društvene mreže", "Nikada više ne gledati filmove"],
+["Nikada ne stajati u redu", "Sve lampice na semaforu zelene kada auto prilazi"],
+["Izgubiti dugotrajno pamćenje", "Izgubiti kratkoročno pamćenje"],
+["Provoditi vikende unutra", "Provoditi vikende napolju"],
+["Statista u odličnom filmu", "Glavna uloga u lošem filmu"],
+["Lični kuvar", "Lični vozač"],
+["Uvek malo previše obučen", "Uvek malo premalo obučen"],
+["Najpametnija osoba u prostoriji", "Najsmešnija osoba"],
+["Jednostavan život sa malo stresa", "Zauzet život sa velikim nagradama"],
+["Odustati od hobija", "Odustati od omiljene hrane"],
+["Uvek imati savršenu stvar za reći", "Uvek znati kada ćutati"],
+["Neograničen broj knjiga, ali bez filmova", "Neograničen broj filmova, ali bez knjiga"],
+["Posao koji voliš i putuješ po svetu", "Posao koji podnosiš i drži te kod kuće"],
+["Primati konstruktivnu kritiku", "Samo pohvale koje ne pomažu"],
+["Promeniti jednu odluku iz prošlosti", "Sprečiti budući žal"],
+["Savršeno jutro, haotične večeri", "Mirne večeri, zauzeta jutra"],
+["Uvek govoriti šta misliš", "Nikada ne deliti mišljenje"],
+["Porodične večere svake noći", "Jedna epska porodična gozba mesečno"],
+["Jesti samo omiljenu hranu", "Uvek probati novu hranu"],
+["Savladati pečenje", "Savladati kuvanje"],
+["Jesti hranu iz celog sveta", "Jesti hranu iz svoje zemlje"],
+["Poznat kao sjajan slušalac", "Poznat kao sjajan pripovedač"],
+["Moć da stvari lebde", "Moć da stvari nestaju"],
+["Ormar vodi u tajni svet", "Bicikl koji leti"],
+["Sankati po grožđanom džemu", "Klizati po smrznutom mleku"],
+["Komunicirati sa pticama", "Komunicirati sa drvećem"],
+["Nositi papuče po hladnom vremenu", "Nositi zimske čizme po toplom vremenu"],
+["Postati kap kiše", "Postati zrak sunca"],
+["Penjati se na drvo kao veverica", "Trčati kao gepard"],
+["Moć da stvari smanjuješ", "Moć da ih uvećavaš"]
+];
+
+let currentQuestion = 0;
+
+const questionBox = document.getElementById("question-box");
+const optionA = document.getElementById("optionA");
+const optionB = document.getElementById("optionB");
+const results = document.getElementById("results");
+const nextBtn = document.getElementById("next-btn");
+
+function showQuestion() {
+    const q = pitanja[currentQuestion];
+    questionBox.textContent = `Pitanje ${currentQuestion+1}: Da li bi radije...`;
+    optionA.textContent = q[0];
+    optionB.textContent = q[1];
+    results.style.display = "none";
+    nextBtn.style.display = "none";
+    optionA.style.display = "inline-block";
+    optionB.style.display = "inline-block";
+}
+
+function showResults() {
+    const percentA = Math.floor(Math.random()*60+20);
+    const percentB = 100 - percentA;
+    results.textContent = `${optionA.textContent}: ${percentA}%  |  ${optionB.textContent}: ${percentB}%`;
+    results.style.display = "block";
+    nextBtn.style.display = "inline-block";
+    optionA.style.display = "none";
+    optionB.style.display = "none";
+}
+
+optionA.addEventListener("click", showResults);
+optionB.addEventListener("click", showResults);
+
+nextBtn.addEventListener("click", () => {
+    currentQuestion++;
+    if(currentQuestion >= pitanja.length){
+        questionBox.textContent = "Hvala što ste igrali!";
+        optionA.style.display = "none";
+        optionB.style.display = "none";
+        results.style.display = "none";
+        nextBtn.style.display = "none";
+    } else {
+        showQuestion();
+    }
+});
+
+// Prvo pitanje
+showQuestion();
+</script>
+
+</body>
+</html>
